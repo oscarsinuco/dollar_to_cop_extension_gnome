@@ -1,0 +1,9 @@
+/* Add your custom extension styling here */
+.label-dollar {
+  font-weight: bold;
+  vertical-align: middle;
+  text-align: right;
+  padding-right: 5px;
+  margin-top: 5px;
+  padding-left: 5px;
+}
