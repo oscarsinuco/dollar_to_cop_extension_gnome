@@ -1,0 +1,8 @@
+{
+  "name": "Dollar to COP",
+  "description": "Get current value of 1 dolar in COP",
+  "uuid": "dollar@oscar.com",
+  "shell-version": [
+    "3.36"
+  ]
+}
