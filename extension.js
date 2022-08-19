@@ -10,9 +10,7 @@ const _httpSession = new Soup.Session();
 const FROM_CURRENCY = "USD";
 const TO_CURRENCY = "COP";
 const TIME_INTERVAL_SECONDS = 345; //Time interval in seconds (each request after 5.75 minutes).
-const URL_API = `https://api.apilayer.com/exchangerates_data/convert?to=${TO_CURRENCY}&from=${FROM_CURRENCY}&amount=1`;
-const API_KEY = "YOUR_SITE_KEY_HERE"; //Site key to use in the API call. Please visit https://apilayer.com/marketplace/exchangerates_data-api#pricing and subscribe to free plan.
-// const URL_API = "http://localhost:3000/";
+const URL_API = `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd/cop.json`;
 let timeout = null;
 /**
  * Extension class.
@@ -70,10 +68,8 @@ class Extension {
 
     log("Making request...");
     // Make http request to get currency.
-    const result = this.send_request(URL_API, "GET", {
-      apikey: API_KEY,
-    });
-    const value = result.result;
+    const result = this.send_request(URL_API, "GET", {});
+    const value = result ? result.cop.toFixed(2) : "Error";
 
     // Add label to indicator
     this.buttonText = new St.Label({
@@ -93,10 +89,8 @@ class Extension {
   initRefreshProcess(interval) {
     timeout = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, interval, () => {
       log("Refreshing...");
-      const r = this.send_request(URL_API, "GET", {
-        apikey: API_KEY,
-      });
-      const v = r.result;
+      const r = this.send_request(URL_API, "GET", {});
+      const v = r ? r.cop.toFixed(2) : "Error";
       this.buttonText.set_text(`1USD = $${v}`);
       return GLib.SOURCE_CONTINUE;
     });
